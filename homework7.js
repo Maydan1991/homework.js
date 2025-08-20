@@ -7,4 +7,4 @@ console.log("Joyful", re.test("Joyful"));       // true
 console.log("Happiness", re.test("Happiness")); // false
 console.log("Time", re.test("Time"));           // false
 console.log("Task", re.test("Task"));           // false
-console.log("Apple", re.test("Apple"));     
+console.log("Apple", re.test("Apple"));         // false
