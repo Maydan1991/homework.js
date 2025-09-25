@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "3bb5448f-91bd-45d9-9693-d54278814226",
+		"name": "book isbn Майданевич",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45499791",
+		"_collection_link": "https://galactic-equinox-881234.postman.co/workspace/eecc47b0-f814-4a03-81eb-4403874621cd/collection/45499791-3bb5448f-91bd-45d9-9693-d54278814226?action=share&source=collection_link&creator=45499791"
+	},
+	"item": [
+		{
+			"name": "sValidISBN13 number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const cheerio = require('cheerio'); \r",
+							"const responseBody = pm.response.text();\r",
+							"const $ = cheerio.load(responseBody);\r",
+							"\r",
+							"// 1. Позитивный: статус 200\r",
+							"pm.test(\"Статус 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// 2. Негативный: статус не 404\r",
+							"pm.test(\"Статус не 404\", function () {\r",
+							"    pm.response.to.not.have.status(404);\r",
+							"});\r",
+							"\r",
+							"// 3. Позитивный: Content-Type XML\r",
+							"pm.test(\"Content-Type XML\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/text\\/xml/);\r",
+							"});\r",
+							"\r",
+							"// 4. Негативный: Content-Type не JSON\r",
+							"pm.test(\"Content-Type не JSON\", function () {\r",
+							"    pm.response.to.not.have.header(\"Content-Type\", /json/);\r",
+							"});\r",
+							"\r",
+							"// 5. Позитивный: тело ответа не пустое\r",
+							"pm.test(\"Response body не пустое\", function () {\r",
+							"    pm.expect(responseBody).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// 6. Негативный: в теле нет 'Internal Server Error'\r",
+							"pm.test(\"Response body не содержит Internal Server Error\", function () {\r",
+							"    pm.expect(responseBody).to.not.include(\"Internal Server Error\");\r",
+							"});\r",
+							"\r",
+							"// 7. Позитивный: есть тег <IsValidISBN13Response>\r",
+							"pm.test(\"Есть IsValidISBN13Response\", function () {\r",
+							"    pm.expect(responseBody).to.include(\"IsValidISBN13Response\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// 8. Позитивный: результат true/false\r",
+							"pm.test(\"IsValidISBN13Result true/false\", function () {\r",
+							"    const result = $(\"IsValidISBN13Result\").text();\r",
+							"    pm.expect([\"true\",\"false\"]).to.include(result);\r",
+							"});\r",
+							"\r",
+							"// 9. Негативный: тело не содержит <html>\r",
+							"pm.test(\"Response body не содержит HTML\", function () {\r",
+							"    pm.expect(responseBody).to.not.include(\"<html>\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Header Location (линк) отсутствует или не обязателен\", function () {\r",
+							"    pm.expect(pm.response.headers.has(\"Location\")).to.be.oneOf([true, false]);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <IsValidISBN13 xmlns=\"http://webservices.daehosting.com/ISBN\">\r\n      <sISBN>978-1-4612-9090-2</sISBN>\r\n    </IsValidISBN13>\r\n  </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://webservices.daehosting.com/services/isbnservice.wso",
+					"protocol": "http",
+					"host": [
+						"webservices",
+						"daehosting",
+						"com"
+					],
+					"path": [
+						"services",
+						"isbnservice.wso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IsValidISBN10 number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const cheerio = require('cheerio'); \r",
+							"const responseBody = pm.response.text();\r",
+							"const $ = cheerio.load(responseBody);\r",
+							"\r",
+							"// 1. Позитивный: статус 200\r",
+							"pm.test(\"Статус 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// 2. Негативный: статус не 500\r",
+							"pm.test(\"Статус не 500\", function () {\r",
+							"    pm.response.to.not.have.status(500);\r",
+							"});\r",
+							"\r",
+							"// 3. Позитивный: Content-Type XML\r",
+							"pm.test(\"Content-Type XML\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/text\\/xml/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// 4. Негативный: Content-Type не HTML\r",
+							"pm.test(\"Content-Type не HTML\", function () {\r",
+							"    pm.response.to.not.have.header(\"Content-Type\", /html/);\r",
+							"});\r",
+							"\r",
+							"// 5. Позитивный: тело ответа не пустое\r",
+							"pm.test(\"Response body не пустое\", function () {\r",
+							"    pm.expect(responseBody).to.not.equal(\"\");\r",
+							"});\r",
+							"\r",
+							"// 6. Негативный: тело не содержит 'Not Found'\r",
+							"pm.test(\"Response body не содержит Not Found\", function () {\r",
+							"    pm.expect(responseBody).to.not.include(\"Not Found\");\r",
+							"});\r",
+							"\r",
+							"// 7. Позитивный: есть тег <IsValidISBN10Response>\r",
+							"pm.test(\"Есть IsValidISBN10Response\", function () {\r",
+							"    pm.expect(responseBody).to.include(\"IsValidISBN10Response\");\r",
+							"});\r",
+							"\r",
+							"// 8. Позитивный: результат true/false\r",
+							"pm.test(\"IsValidISBN10Result true/false\", function () {\r",
+							"    const result = $(\"IsValidISBN10Result\").text();\r",
+							"    pm.expect([\"true\",\"false\"]).to.include(result);\r",
+							"});\r",
+							"\r",
+							"// 9. Негативный: тело не содержит 'Error'\r",
+							"pm.test(\"Response body не содержит Error\", function () {\r",
+							"    pm.expect(responseBody).to.not.include(\"Error\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Header Location (линк) отсутствует или не обязателен\", function () {\r",
+							"    pm.expect(pm.response.headers.has(\"Location\")).to.be.oneOf([true, false]);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <IsValidISBN10 xmlns=\"http://webservices.daehosting.com/ISBN\">\r\n      <sISBN>0-19-852663-6</sISBN>\r\n    </IsValidISBN10>\r\n  </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://webservices.daehosting.com/services/isbnservice.wso",
+					"protocol": "http",
+					"host": [
+						"webservices",
+						"daehosting",
+						"com"
+					],
+					"path": [
+						"services",
+						"isbnservice.wso"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
